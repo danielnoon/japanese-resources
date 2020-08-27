@@ -1,0 +1,39 @@
+.center {
+  display: flex;
+  height: 100%;
+}
+
+.jumbotron {
+  margin: 60px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.bigg-title {
+  padding: 40px;
+  font-size: 72px;
+  text-align: center;
+  color: white;
+  border-radius: 20px;
+  background: rgb(59, 24, 75);
+  background: linear-gradient(
+    125deg,
+    rgba(59, 24, 75, 1) 0%,
+    rgba(217, 42, 81, 1) 100%
+  );
+  margin-top: 60px;
+}
+
+@media (max-width: 560px) {
+  .bigg-title {
+    max-width: 340px;
+  }
+}
+
+.intro-title {
+  font-size: 60px;
+  text-align: center;
+}

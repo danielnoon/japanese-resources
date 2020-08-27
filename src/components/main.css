@@ -1,0 +1,183 @@
+@import "https://fonts.googleapis.com/css?family=Libre+Baskerville|Libre+Franklin&display=swap";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+body,
+p {
+  font-family: "Libre Baskerville";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  font-family: "Libre Franklin";
+}
+
+.icon {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga";
+}
+
+.icon.md-18 {
+  font-size: 18px;
+}
+.icon.md-24 {
+  font-size: 24px;
+}
+.icon.md-36 {
+  font-size: 36px;
+}
+.icon.md-48 {
+  font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.icon.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+.icon.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.icon.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+.icon.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.main-wrapper {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-basis: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  max-width: 900px;
+  padding: 20px;
+}
+
+.bigg-title {
+  padding: 40px;
+  font-size: 72px;
+  text-align: center;
+  color: white;
+  border-radius: 20px;
+  background: rgb(59, 24, 75);
+  background: linear-gradient(
+    125deg,
+    rgba(59, 24, 75, 1) 0%,
+    rgba(217, 42, 81, 1) 100%
+  );
+  margin-top: 60px;
+}
+
+@media (max-width: 560px) {
+  .bigg-title {
+    max-width: 340px;
+  }
+}
+
+.big-title {
+  padding: 40px;
+  font-size: 60px;
+  text-align: center;
+  color: white;
+  margin-bottom: 80px;
+  border-radius: 20px;
+  background: rgb(59, 24, 75);
+  background: linear-gradient(
+    125deg,
+    rgba(59, 24, 75, 1) 0%,
+    rgba(217, 42, 81, 1) 100%
+  );
+  margin-top: 60px;
+}
+
+.button-link {
+  margin: 20px auto;
+}
+
+.btn {
+  background: linear-gradient(
+    125deg,
+    rgba(59, 24, 75, 1) 0%,
+    rgba(217, 42, 81, 1) 100%
+  );
+  color: white;
+  font-size: 24px;
+  padding: 20px 30px;
+  border: none;
+  border-radius: 10px;
+  align-self: center;
+  transition: 200ms ease-in-out;
+  position: relative;
+  z-index: 1;
+}
+
+.btn::before {
+  border-radius: 10px;
+  background: linear-gradient(
+    175deg,
+    rgba(87, 36, 111, 1) 0%,
+    rgba(255, 69, 110, 1) 100%
+  );
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+  z-index: -1;
+}
+
+.btn:hover {
+  transform: scale3d(1.05, 1.05, 1);
+  cursor: pointer;
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.button-inner {
+  display: flex;
+  align-items: center;
+}
+
+.navigation {
+  display: flex;
+  margin: 60px 0 120px 0;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
