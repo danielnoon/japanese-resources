@@ -19,7 +19,7 @@ const IndexPage = () => (
           </p>
         </div>
         <Link to="/intro">
-          <button className="call-to-action">
+          <button className="btn">
             <div className="button-inner">
               Intro <i className="icon md-36">chevron_right</i>
             </div>
