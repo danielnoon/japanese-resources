@@ -25,6 +25,13 @@ exports.createPages = async function ({ actions, graphql }) {
           },
         });
       } else if (node.type === "cards") {
+        actions.createPage({
+          path: node.slug,
+          component: require.resolve("./src/templates/deck-page.tsx"),
+          context: {
+            slug: node.slug,
+          },
+        });
       }
     });
 };

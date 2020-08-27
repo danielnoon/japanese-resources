@@ -99,12 +99,6 @@ main {
   margin-top: 60px;
 }
 
-@media (max-width: 560px) {
-  .bigg-title {
-    max-width: 340px;
-  }
-}
-
 .big-title {
   padding: 40px;
   font-size: 60px;
@@ -119,6 +113,20 @@ main {
     rgba(217, 42, 81, 1) 100%
   );
   margin-top: 60px;
+}
+
+@media (max-width: 560px) {
+  .bigg-title {
+    max-width: 340px;
+  }
+
+  .bigg-title {
+    font-size: 48px;
+  }
+
+  .big-title {
+    font-size: 28px;
+  }
 }
 
 .button-link {

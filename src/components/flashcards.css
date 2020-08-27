@@ -1,0 +1,156 @@
+.deck-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  background-color: transparent;
+  width: calc(100vw - 40px);
+  height: calc(100vw * 2 / 3);
+  max-width: 600px;
+  max-height: 400px;
+  /* margin: 10px auto; */
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.card.side-1 .card-inner {
+  transform: rotateY(180deg);
+}
+
+.front,
+.back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.icon-button {
+  display: inline-flex;
+  margin: 10px;
+  padding: 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+  border-radius: 100px;
+}
+
+.icon-button .icon {
+  margin: auto;
+}
+
+.control-buttons {
+  width: calc(100vw - 40px);
+  max-width: 600px;
+  margin: 10px auto 0 auto;
+}
+
+.deck-name {
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .deck-name {
+    font-size: 24px;
+  }
+}
+
+.card-control-area {
+  display: grid;
+  grid-template-columns: 1fr 600px 1fr;
+  margin-bottom: 40px;
+}
+
+.card-next-btn,
+.card-prev-btn {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  transition: 200ms ease-in-out;
+}
+
+.card-next-btn:hover,
+.card-prev-btn:hover {
+  background-color: #eee;
+}
+
+.mobile-controls {
+  display: none;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+  margin: 20px 0 60px 0;
+}
+
+.mobile-button-left,
+.mobile-button-right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+}
+
+/* .mobile-button-left > i,
+.mobile-button-right > i {
+
+} */
+
+@media (max-width: 900px) {
+  .card-control-area {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .card-next-btn,
+  .card-prev-btn {
+    display: none;
+  }
+
+  .card {
+    margin: auto;
+  }
+
+  .mobile-controls {
+    display: flex;
+  }
+}

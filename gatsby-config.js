@@ -16,7 +16,8 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: process.env.STRAPI_URL || `http://localhost:1337`,
+        apiURL:
+          process.env.STRAPI_URL || `https://japanese-cms.danielnoon.info`,
         queryLimit: 1000,
         contentTypes: [`flashcard-deck`, `page`],
       },

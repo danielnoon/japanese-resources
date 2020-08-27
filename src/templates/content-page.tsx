@@ -19,6 +19,7 @@ const ContentPageTemplate: FC<PageProps<ContentPageProps>> = ({ data }) => {
     <Layout>
       <SEO title={page.title} />
       <h1 className="big-title">{page.title}</h1>
+      <Navigation page={page} />
       <div
         className="page-content"
         dangerouslySetInnerHTML={{ __html: content }}
