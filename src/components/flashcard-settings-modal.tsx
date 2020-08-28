@@ -6,6 +6,9 @@ import {
   Modal,
   Backdrop,
   Fade,
+  Button,
+  FormControlLabel,
+  Checkbox,
 } from "@material-ui/core";
 
 interface SettingsModalProps {
@@ -24,17 +27,26 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "center",
       border: "none",
+      maxHeight: "100vh",
+      overflow: "hidden",
     },
     paper: {
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      padding: theme.spacing(5, 4, 5),
       width: 400,
       maxWidth: "100%",
       border: "none",
+      display: "flex",
+      flexDirection: "column",
+      maxHeight: "100vh",
+      overflow: "auto",
     },
     fieldLabel: {
       paddingLeft: 10,
+    },
+    fieldSelect: {
+      margin: theme.spacing(0, 0, 4),
     },
   })
 );
@@ -61,19 +73,21 @@ export const FlashcardSettingsModal: FC<SettingsModalProps> = ({
     >
       <Fade in={show}>
         <div className={classes.paper}>
-          <div className="field-select">
+          <div className={classes.fieldSelect}>
             <div className="front-select">
               <h2>Front</h2>
               {availableFields.map((field, i) => (
                 <div key={i}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={front.includes(field)}
-                      onChange={() => toggleSelected("front", field)}
-                    />
-                    <span className={classes.fieldLabel}>{field}</span>
-                  </label>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={front.includes(field)}
+                        onChange={() => toggleSelected("front", field)}
+                        name={"checked-front-" + field}
+                      />
+                    }
+                    label={field}
+                  />
                 </div>
               ))}
             </div>
@@ -81,18 +95,28 @@ export const FlashcardSettingsModal: FC<SettingsModalProps> = ({
               <h2>Back</h2>
               {availableFields.map((field, i) => (
                 <div key={i}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={back.includes(field)}
-                      onChange={() => toggleSelected("back", field)}
-                    />
-                    <span className={classes.fieldLabel}>{field}</span>
-                  </label>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={back.includes(field)}
+                        onChange={() => toggleSelected("back", field)}
+                        name={"checked-back-" + field}
+                      />
+                    }
+                    label={field}
+                  />
                 </div>
               ))}
             </div>
           </div>
+          <Button
+            variant="contained"
+            color="primary"
+            disableElevation
+            onClick={() => onDismiss()}
+          >
+            Done
+          </Button>
         </div>
       </Fade>
     </Modal>
