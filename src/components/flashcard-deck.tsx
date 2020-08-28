@@ -124,7 +124,7 @@ export class FlashcardDeck extends Component<
               .filter((card, i) => Math.abs(this.state.index - i) <= 1)
               .map((card, i) => (
                 <FlashcardCard
-                  key={card[this.state.front[0]]}
+                  key={card.INDEX}
                   data={card}
                   back={this.state.back}
                   front={this.state.front}

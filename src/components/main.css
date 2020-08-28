@@ -25,6 +25,13 @@ button {
   font-family: "Libre Franklin", "Noto Sans JP";
 }
 
+html,
+body,
+.main-wrapper {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .icon {
   font-family: "Material Icons";
   font-weight: normal;
