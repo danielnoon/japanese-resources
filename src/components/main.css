@@ -1,12 +1,18 @@
-@import "https://fonts.googleapis.com/css?family=Libre+Baskerville|Libre+Franklin&display=swap";
+@import "https://fonts.googleapis.com/css?family=Libre+Baskerville|Libre+Franklin|Sawarabi+Mincho|Noto+Sans+JP&display=swap";
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 body,
 p,
 li,
 ul,
-ol {
-  font-family: "Libre Baskerville";
+ol,
+table {
+  font-family: "Libre Baskerville", "Sawarabi Mincho";
+}
+
+p,
+li {
+  line-height: 32px;
 }
 
 h1,
@@ -16,7 +22,7 @@ h4,
 h5,
 h6,
 button {
-  font-family: "Libre Franklin";
+  font-family: "Libre Franklin", "Noto Sans JP";
 }
 
 .icon {
@@ -118,7 +124,7 @@ main {
   margin-top: 60px;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   .bigg-title {
     max-width: 340px;
   }
@@ -191,4 +197,8 @@ main {
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.back-select {
+  margin-top: 40px;
 }

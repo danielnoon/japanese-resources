@@ -6,6 +6,8 @@ interface FlashcardCardProps {
   };
   front: string[];
   back: string[];
+  advanceDirection: number;
+  role: number;
 }
 
 interface FlashcardCardState {
@@ -33,8 +35,10 @@ export class FlashcardCard extends Component<
     const back = this.props.back.map(e => this.props.data[e]);
     return (
       <div
-        className={`card side-${this.state.side}`}
-        onClick={() => this.setState({ side: this.state.side === 0 ? 1 : 0 })}
+        className={`card side-${this.state.side} direction-${this.props.advanceDirection} role-${this.props.role}`}
+        onClick={() =>
+          this.setState(({ side }) => ({ side: side === 1 ? 0 : 1 }))
+        }
       >
         <div className="card-inner">
           <div className="front">

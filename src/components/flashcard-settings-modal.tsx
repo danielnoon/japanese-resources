@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
-      width: 600,
+      width: 400,
       maxWidth: "100%",
       border: "none",
     },
@@ -70,7 +70,7 @@ export const FlashcardSettingsModal: FC<SettingsModalProps> = ({
                     <input
                       type="checkbox"
                       checked={front.includes(field)}
-                      onClick={() => toggleSelected("front", field)}
+                      onChange={() => toggleSelected("front", field)}
                     />
                     <span className={classes.fieldLabel}>{field}</span>
                   </label>
@@ -85,7 +85,7 @@ export const FlashcardSettingsModal: FC<SettingsModalProps> = ({
                     <input
                       type="checkbox"
                       checked={back.includes(field)}
-                      onClick={() => toggleSelected("back", field)}
+                      onChange={() => toggleSelected("back", field)}
                     />
                     <span className={classes.fieldLabel}>{field}</span>
                   </label>

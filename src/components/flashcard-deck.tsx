@@ -19,6 +19,8 @@ interface FlashcardDeckState {
     [prop: string]: string;
   }[];
   showSettings: boolean;
+  cardSide: number;
+  advanceDirection: number;
 }
 
 export class FlashcardDeck extends Component<
@@ -36,12 +38,16 @@ export class FlashcardDeck extends Component<
       ? this.props.deck[0]["BACK"].split(",")
       : [fields[1]];
 
+    this.props.deck.forEach((card, i) => (card.INDEX = i.toString()));
+
     this.state = {
       index: 0,
       front,
       back,
       deck: this.props.deck,
       showSettings: false,
+      cardSide: 0,
+      advanceDirection: 0,
     };
   }
 
@@ -55,7 +61,9 @@ export class FlashcardDeck extends Component<
       d[j] = temp;
     }
 
-    this.setState({ deck: d, index: 0 });
+    d.forEach((card, i) => (card.INDEX = i.toString()));
+
+    this.setState({ deck: d, index: 0, advanceDirection: 0 });
   }
 
   toggleSelected(side: "front" | "back", field: string) {
@@ -74,11 +82,13 @@ export class FlashcardDeck extends Component<
 
   render() {
     const availableFields = Object.keys(this.state.deck[0]).filter(
-      v => !["FRONT", "BACK"].includes(v)
+      v => !["FRONT", "BACK", "INDEX"].includes(v)
     );
 
     return (
       <div className="deck-wrapper">
+        {/* <input type="text" className="deck-focus-capture" /> */}
+        <h1 className="deck-name">{this.props.name}</h1>
         <div className="control-buttons">
           <button
             className="icon-button card-control-button card-shuffle-button"
@@ -97,23 +107,42 @@ export class FlashcardDeck extends Component<
           <div>
             <button
               className="card-prev-btn"
-              onClick={() => this.setState({ index: this.state.index - 1 })}
+              onClick={() =>
+                this.setState({
+                  index: this.state.index - 1,
+                  cardSide: 0,
+                  advanceDirection: 1,
+                })
+              }
               disabled={this.state.index <= 0}
             >
               <i className="icon md-36">chevron_left</i>
             </button>
           </div>
           <div className="card-wrapper">
-            <FlashcardCard
-              back={this.state.back}
-              front={this.state.front}
-              data={this.state.deck[this.state.index]}
-            ></FlashcardCard>
+            {this.state.deck
+              .filter((card, i) => Math.abs(this.state.index - i) <= 1)
+              .map((card, i) => (
+                <FlashcardCard
+                  key={card[this.state.front[0]]}
+                  data={card}
+                  back={this.state.back}
+                  front={this.state.front}
+                  advanceDirection={this.state.advanceDirection}
+                  role={this.state.index - parseInt(card.INDEX)}
+                />
+              ))}
           </div>
           <div>
             <button
               className="card-next-btn"
-              onClick={() => this.setState({ index: this.state.index + 1 })}
+              onClick={() =>
+                this.setState({
+                  index: this.state.index + 1,
+                  cardSide: 0,
+                  advanceDirection: 2,
+                })
+              }
               disabled={this.state.index >= this.props.deck.length - 1}
             >
               <i className="icon md-36">chevron_right</i>
@@ -123,20 +152,31 @@ export class FlashcardDeck extends Component<
         <div className="mobile-controls">
           <button
             className="mobile-button-left"
-            onClick={() => this.setState({ index: this.state.index - 1 })}
+            onClick={() =>
+              this.setState({
+                index: this.state.index - 1,
+                cardSide: 0,
+                advanceDirection: 1,
+              })
+            }
             disabled={this.state.index <= 0}
           >
             <i className="icon md-36">chevron_left</i>
           </button>
           <button
             className="mobile-button-right"
-            onClick={() => this.setState({ index: this.state.index + 1 })}
+            onClick={() =>
+              this.setState({
+                index: this.state.index + 1,
+                cardSide: 0,
+                advanceDirection: 2,
+              })
+            }
             disabled={this.state.index >= this.props.deck.length - 1}
           >
             <i className="icon md-36">chevron_right</i>
           </button>
         </div>
-        <h1 className="deck-name">{this.props.name}</h1>
         <FlashcardSettingsModal
           availableFields={availableFields}
           front={this.state.front}
