@@ -79,7 +79,6 @@ export class FlashcardDeck extends Component<
 
     return (
       <div className="deck-wrapper">
-        <h1 className="deck-name">{this.props.name}</h1>
         <div className="control-buttons">
           <button
             className="icon-button card-control-button card-shuffle-button"
@@ -137,6 +136,7 @@ export class FlashcardDeck extends Component<
             <i className="icon md-36">chevron_right</i>
           </button>
         </div>
+        <h1 className="deck-name">{this.props.name}</h1>
         <FlashcardSettingsModal
           availableFields={availableFields}
           front={this.state.front}

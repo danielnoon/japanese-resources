@@ -2,7 +2,10 @@
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 body,
-p {
+p,
+li,
+ul,
+ol {
   font-family: "Libre Baskerville";
 }
 
@@ -92,7 +95,7 @@ main {
   border-radius: 20px;
   background: rgb(59, 24, 75);
   background: linear-gradient(
-    125deg,
+    220deg,
     rgba(59, 24, 75, 1) 0%,
     rgba(217, 42, 81, 1) 100%
   );
@@ -108,7 +111,7 @@ main {
   border-radius: 20px;
   background: rgb(59, 24, 75);
   background: linear-gradient(
-    125deg,
+    75deg,
     rgba(59, 24, 75, 1) 0%,
     rgba(217, 42, 81, 1) 100%
   );
