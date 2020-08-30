@@ -187,6 +187,7 @@ main {
 .btn:hover {
   transform: scale3d(1.05, 1.05, 1);
   cursor: pointer;
+  box-shadow: 0 0 20px 10px #6f4185;
 }
 
 .btn:hover::before {
