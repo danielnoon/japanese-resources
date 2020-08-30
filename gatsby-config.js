@@ -35,44 +35,9 @@ module.exports = {
         theme_color: `#3b184b`,
         display: `standalone`,
         icon: `src/images/logo/logo.png`,
-        icons: [
-          {
-            src: "/icons/48x48.png",
-            sizes: "48x48",
-            type: "image/png",
-            purpose: "maskable",
-          },
-          {
-            src: "/icons/72x72.png",
-            sizes: "72x72",
-            type: "image/png",
-            purpose: "maskable",
-          },
-          {
-            src: "/icons/96x96.png",
-            sizes: "96x96",
-            type: "image/png",
-            purpose: "maskable",
-          },
-          {
-            src: "/icons/144x144.png",
-            sizes: "144x144",
-            type: "image/png",
-            purpose: "maskable",
-          },
-          {
-            src: "/icons/192x192.png",
-            sizes: "192x192",
-            type: "image/png",
-            purpose: "maskable",
-          },
-          {
-            src: "/icons/512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "maskable",
-          },
-        ],
+        icon_options: {
+          purpose: "maskable",
+        },
       },
     },
     `gatsby-plugin-offline`,
