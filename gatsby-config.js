@@ -37,7 +37,39 @@ module.exports = {
         icon: `src/images/logo/logo.png`,
         icons: [
           {
-            src: "icons/icon-512x512.png",
+            src: "/icons/48x48.png",
+            sizes: "48x48",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "/icons/72x72.png",
+            sizes: "72x72",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "/icons/96x96.png",
+            sizes: "96x96",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "/icons/144x144.png",
+            sizes: "144x144",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "/icons/192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "/icons/512x512.png",
+            sizes: "512x512",
+            type: "image/png",
             purpose: "maskable",
           },
         ],
