@@ -123,15 +123,12 @@ const Layout: FC<LayoutProps> = ({ children, pageSlug }) => {
             >
               <MenuIcon />
             </IconButton>
-            <Link to="/my">
-              {/* <IconButton edge="end" color="inherit">
-                <StudyButton />
-              </IconButton> */}
-            </Link>
+            {/* <IconButton edge="end" color="inherit">
+              <StudyButton />
+            </IconButton> */}
           </Toolbar>
         </AppBar>
         <Drawer
-          container={window ? document.body : undefined}
           variant="temporary"
           anchor={theme.direction === "rtl" ? "right" : "left"}
           open={navOpen}
