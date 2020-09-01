@@ -1,4 +1,4 @@
-import { Deck } from "./deck.model";
+import { DBDeck } from "./deck.model";
 
 export interface GeneralPage {
   index: number;
@@ -15,7 +15,7 @@ export interface ContentPage extends GeneralPage {
 
 export interface DeckPage extends GeneralPage {
   type: "cards";
-  decks: Deck[];
+  decks: DBDeck[];
 }
 
 export type Page = ContentPage | DeckPage;

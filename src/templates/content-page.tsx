@@ -16,10 +16,9 @@ const ContentPageTemplate: FC<PageProps<ContentPageProps>> = ({ data }) => {
   const { page } = data;
   const content = md.render(page.content);
   return (
-    <Layout>
+    <Layout pageSlug={page.slug}>
       <SEO title={page.title} />
       <h1 className="big-title">{page.title}</h1>
-      <Navigation page={page} />
       <div
         className="page-content"
         dangerouslySetInnerHTML={{ __html: content }}

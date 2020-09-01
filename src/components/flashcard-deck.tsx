@@ -3,6 +3,7 @@ import { FlashcardCard } from "./flashcard-card";
 
 import "./flashcards.css";
 import { FlashcardSettingsModal } from "./flashcard-settings-modal";
+import { SRS } from "../SRS";
 
 interface FlashcardDeckProps {
   deck: {
@@ -21,6 +22,7 @@ interface FlashcardDeckState {
   showSettings: boolean;
   cardSide: number;
   advanceDirection: number;
+  isSaved: boolean;
 }
 
 export class FlashcardDeck extends Component<
@@ -48,7 +50,12 @@ export class FlashcardDeck extends Component<
       showSettings: false,
       cardSide: 0,
       advanceDirection: 0,
+      isSaved: false,
     };
+  }
+
+  componentDidMount() {
+    this.setState({ isSaved: SRS.hasGroup(this.props.name) });
   }
 
   shuffleCards() {
@@ -76,6 +83,16 @@ export class FlashcardDeck extends Component<
     }
   }
 
+  addToSRS() {
+    SRS.addGroup(this.props.name, this.props.deck);
+    this.setState({ isSaved: true });
+  }
+
+  removeFromSRS() {
+    SRS.removeGroup(this.props.name);
+    this.setState({ isSaved: false });
+  }
+
   dismissModal() {
     this.setState({ showSettings: false });
   }
@@ -95,6 +112,18 @@ export class FlashcardDeck extends Component<
             onClick={() => this.shuffleCards()}
           >
             <i className="icon">shuffle</i>
+          </button>
+          <button
+            className="icon-button card-control-button card-srs-button"
+            onClick={() =>
+              this.state.isSaved ? this.removeFromSRS() : this.addToSRS()
+            }
+          >
+            {this.state.isSaved ? (
+              <i className="icon">star</i>
+            ) : (
+              <i className="icon">star_outline</i>
+            )}
           </button>
           <button
             className="icon-button card-control-button card-settings-button"

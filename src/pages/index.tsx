@@ -5,6 +5,10 @@ import "./index.css";
 import SEO from "../components/seo";
 import Layout from "../components/layout";
 
+import { SRS } from "../SRS";
+
+console.log(SRS);
+
 const IndexPage = () => (
   <Layout>
     <SEO title="Welcome" />

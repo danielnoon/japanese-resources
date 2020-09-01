@@ -15,10 +15,9 @@ const DeckPageTemplate: FC<PageProps<DeckPageProps>> = ({ data }) => {
   const decks = page.decks;
 
   return (
-    <Layout>
+    <Layout pageSlug={page.slug}>
       <SEO title={page.title} />
       <h1 className="big-title">{page.title}</h1>
-      <Navigation page={page} />
       {decks.map((deck, i) => (
         <FlashcardDeck
           name={deck.name}
