@@ -21,6 +21,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
+import StudyButton from "@material-ui/icons/Style";
 import theme from "../theme";
 
 interface LayoutProps {
@@ -122,6 +123,11 @@ const Layout: FC<LayoutProps> = ({ children, pageSlug }) => {
             >
               <MenuIcon />
             </IconButton>
+            <Link to="/my">
+              {/* <IconButton edge="end" color="inherit">
+                <StudyButton />
+              </IconButton> */}
+            </Link>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -140,7 +146,7 @@ const Layout: FC<LayoutProps> = ({ children, pageSlug }) => {
           {drawer}
         </Drawer>
         <div className="main-wrapper">
-          <main>{children}</main>
+          <main className="layout-main">{children}</main>
         </div>
       </ThemeProvider>
     </>
