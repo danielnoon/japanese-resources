@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import PropTypes from "prop-types";
-import { useStaticQuery, graphql, Link } from "gatsby";
+import { useStaticQuery, graphql, Link, navigate } from "gatsby";
 
 import "./layout.css";
 import "./main.css";
@@ -18,6 +18,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
@@ -55,6 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
     closeButton: {
       position: "absolute",
       right: 20,
+    },
+    title: {
+      flexGrow: 1,
     },
   })
 );
@@ -123,9 +127,16 @@ const Layout: FC<LayoutProps> = ({ children, pageSlug }) => {
             >
               <MenuIcon />
             </IconButton>
-            {/* <IconButton edge="end" color="inherit">
+            <Typography variant="h6" className={classes.title}>
+              Japanese
+            </Typography>
+            <IconButton
+              edge="end"
+              color="inherit"
+              onClick={() => navigate("/my")}
+            >
               <StudyButton />
-            </IconButton> */}
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer

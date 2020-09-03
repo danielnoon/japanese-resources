@@ -113,18 +113,20 @@ export class FlashcardDeck extends Component<
           >
             <i className="icon">shuffle</i>
           </button>
-          <button
-            className="icon-button card-control-button card-srs-button"
-            onClick={() =>
-              this.state.isSaved ? this.removeFromSRS() : this.addToSRS()
-            }
-          >
-            {this.state.isSaved ? (
-              <i className="icon">star</i>
-            ) : (
-              <i className="icon">star_outline</i>
-            )}
-          </button>
+          {this.props.name === "Study" ? null : (
+            <button
+              className="icon-button card-control-button card-srs-button"
+              onClick={() =>
+                this.state.isSaved ? this.removeFromSRS() : this.addToSRS()
+              }
+            >
+              {this.state.isSaved ? (
+                <i className="icon">star</i>
+              ) : (
+                <i className="icon">star_outline</i>
+              )}
+            </button>
+          )}
           <button
             className="icon-button card-control-button card-settings-button"
             onClick={() => this.setState({ showSettings: true })}

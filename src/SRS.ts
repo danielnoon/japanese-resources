@@ -1,14 +1,16 @@
 import { Card } from "./models/deck.model";
 
+const HOUR = 1000 * 60 * 60;
+
 export const srsTiming = [
-  4, // 4 hours
-  8, // 8 hours
-  24, // 1 day
-  48, // 2 days
-  7 * 24, // 1 week
-  2 * 7 * 24, // 2 weeks
-  4 * 7 * 24, // 1 month
-  4 * 4 * 7 * 24, // 4 months
+  HOUR * 4, // 4 hours
+  HOUR * 8, // 8 hours
+  HOUR * 24, // 1 day
+  HOUR * 48, // 2 days
+  HOUR * 7 * 24, // 1 week
+  HOUR * 2 * 7 * 24, // 2 weeks
+  HOUR * 4 * 7 * 24, // 1 month
+  HOUR * 4 * 4 * 7 * 24, // 4 months
 ];
 
 export interface SRSCard {
@@ -65,7 +67,42 @@ export class SRS {
 
   static getReview() {}
 
+  static getNumReviews() {
+    if (!this.data) this.revive();
+
+    return this.data.terms.reduce(
+      (acc, term) =>
+        acc +
+        (term.level > -1 &&
+        Date.now() > term.lastStudied + srsTiming[term.level]
+          ? 1
+          : 0),
+      0
+    );
+  }
+
   static getLesson() {}
+
+  static getNumLessons() {
+    if (!this.data) this.revive();
+
+    return this.data.terms.reduce(
+      (acc, term) => acc + (term.level === -1 ? 1 : 0),
+      0
+    );
+  }
+
+  static getFlashcardsFor(groups: string[]) {
+    return this.data.terms
+      .filter(c => groups.includes(c.group))
+      .map(c => c.card);
+  }
+
+  static getGroups() {
+    if (!this.data) this.revive();
+
+    return this.data.groups;
+  }
 
   static addGroup(name: string, cards: Card[]) {
     if (!this.data) this.revive();
@@ -73,7 +110,7 @@ export class SRS {
     const id = getGroupId(name);
     const deck = cards.map(
       c =>
-        ({ card: c, group: id, lastStudied: Date.now(), level: 0 } as SRSCard)
+        ({ card: c, group: id, lastStudied: Date.now(), level: -1 } as SRSCard)
     );
     const group = { id, name } as SRSGroup;
 
