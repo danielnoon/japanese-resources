@@ -33,14 +33,14 @@ export class FlashcardDeck extends Component<
     super(props);
 
     const fields = Object.keys(this.props.deck[0]);
-    const front = fields.includes("FRONT")
-      ? this.props.deck[0]["FRONT"].split(",")
+    const front = fields.includes("&FRONT")
+      ? this.props.deck[0]["&FRONT"].split(",")
       : [fields[0]];
-    const back = fields.includes("BACK")
-      ? this.props.deck[0]["BACK"].split(",")
+    const back = fields.includes("&BACK")
+      ? this.props.deck[0]["&BACK"].split(",")
       : [fields[1]];
 
-    this.props.deck.forEach((card, i) => (card.INDEX = i.toString()));
+    this.props.deck.forEach((card, i) => (card["&INDEX"] = i.toString()));
 
     this.state = {
       index: 0,
@@ -68,7 +68,7 @@ export class FlashcardDeck extends Component<
       d[j] = temp;
     }
 
-    d.forEach((card, i) => (card.INDEX = i.toString()));
+    d.forEach((card, i) => (card["&INDEX"] = i.toString()));
 
     this.setState({ deck: d, index: 0, advanceDirection: 0 });
   }
@@ -99,7 +99,7 @@ export class FlashcardDeck extends Component<
 
   render() {
     const availableFields = Object.keys(this.state.deck[0]).filter(
-      v => !["FRONT", "BACK", "INDEX"].includes(v)
+      v => v[0] !== "&"
     );
 
     return (
@@ -155,12 +155,12 @@ export class FlashcardDeck extends Component<
               .filter((card, i) => Math.abs(this.state.index - i) <= 1)
               .map((card, i) => (
                 <FlashcardCard
-                  key={card.INDEX}
+                  key={card["&INDEX"]}
                   data={card}
                   back={this.state.back}
                   front={this.state.front}
                   advanceDirection={this.state.advanceDirection}
-                  role={this.state.index - parseInt(card.INDEX)}
+                  role={this.state.index - parseInt(card["&INDEX"])}
                 />
               ))}
           </div>
