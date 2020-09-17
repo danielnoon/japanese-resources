@@ -145,6 +145,7 @@
   justify-content: center;
   align-content: stretch;
   align-items: center;
+  background-color: white;
 }
 
 .back {
@@ -160,6 +161,12 @@
   cursor: pointer;
   transition: 200ms ease-in-out;
   border-radius: 100px;
+}
+
+.audio-button {
+  position: absolute !important;
+  top: 10px;
+  right: 10px;
 }
 
 .icon-button .icon {

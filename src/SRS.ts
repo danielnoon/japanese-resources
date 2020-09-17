@@ -1,19 +1,30 @@
 import { Card } from "./models/deck.model";
+import sha from "js-sha1";
+import { shuffle } from "./util";
 
 const HOUR = 1000 * 60 * 60;
+const DAY = 24 * HOUR;
+const WEEK = 7 * DAY;
+const MONTH = 30 * DAY;
 
 export const srsTiming = [
-  HOUR * 4, // 4 hours
-  HOUR * 8, // 8 hours
-  HOUR * 24, // 1 day
-  HOUR * 48, // 2 days
-  HOUR * 7 * 24, // 1 week
-  HOUR * 2 * 7 * 24, // 2 weeks
-  HOUR * 4 * 7 * 24, // 1 month
-  HOUR * 4 * 4 * 7 * 24, // 4 months
+  HOUR * 2, // 2 hours
+  HOUR * 6, // 6 hours
+  HOUR * 12, // 12 hours
+  DAY, // 1 day
+  DAY, // 1 day
+  DAY * 2, // 2 days
+  DAY * 4, // 4 days
+  WEEK, // 1 week
+  WEEK, // 1 week
+  WEEK * 2, // 2 weeks
+  MONTH, // 1 month
+  MONTH * 2, // 2 months
+  MONTH * 4, // 4 months
 ];
 
 export interface SRSCard {
+  id: string;
   card: Card;
   group: string;
   level: number;
@@ -30,7 +41,20 @@ export interface SRSData {
   terms: SRSCard[];
 }
 
-export interface Review {}
+export interface StudyItemSolution {
+  value: string[][];
+  flags: string[];
+}
+
+export interface StudyItemReview {
+  present: string[][][];
+  solution: StudyItemSolution;
+}
+
+export interface StudyItem {
+  id: string;
+  reviews: StudyItemReview[];
+}
 
 function getGroupId(name: string) {
   return name.toLowerCase().replace(/[^a-z0-9]/g, "-");
@@ -65,7 +89,7 @@ export class SRS {
     localStorage.setItem("srsdata", s);
   }
 
-  static getReview() {}
+  static getReviews() {}
 
   static getNumReviews() {
     if (!this.data) this.revive();
@@ -81,7 +105,15 @@ export class SRS {
     );
   }
 
-  static getLesson() {}
+  static getLessons() {
+    if (!this.data) this.revive();
+
+    const lessons = this.data.terms.filter(term => term.level === -1);
+
+    const queue = this.makeReviewQueue(lessons);
+
+    return shuffle(queue);
+  }
 
   static getNumLessons() {
     if (!this.data) this.revive();
@@ -90,6 +122,41 @@ export class SRS {
       (acc, term) => acc + (term.level === -1 ? 1 : 0),
       0
     );
+  }
+
+  static learnItem(id: string) {
+    const item = this.data.terms.find(c => c.id === id);
+    item.level = 0;
+    item.lastStudied = Date.now();
+    this.save();
+  }
+
+  static makeReviewQueue(cards: SRSCard[]): StudyItem[] {
+    return cards.map(card => {
+      const k = Object.keys(card.card);
+
+      const studyInstructions = card.card["&STUDY"]?.split(";") || [
+          `${card.card["&FRONT"]}>${card.card["&BACK"]}`,
+        ] || [card.card[k[0]], card.card[k[1]]];
+
+      const reviews = studyInstructions.map(i => {
+        const d = i.split(">");
+        const present = d[0]
+          .split(",")
+          .map(d => card.card[d].split(";").map(a => a.split(",")));
+        const solution = d[1].split(",");
+
+        return {
+          present,
+          solution: {
+            value: card.card[solution[0]].split(";").map(a => a.split(",")),
+            flags: solution.slice(1),
+          },
+        } as StudyItemReview;
+      });
+
+      return { id: card.id, reviews: shuffle(reviews) } as StudyItem;
+    });
   }
 
   static getFlashcardsFor(groups: string[]) {
@@ -110,7 +177,13 @@ export class SRS {
     const id = getGroupId(name);
     const deck = cards.map(
       c =>
-        ({ card: c, group: id, lastStudied: Date.now(), level: -1 } as SRSCard)
+        ({
+          card: c,
+          group: id,
+          lastStudied: 0,
+          level: -1,
+          id: `${id}|${sha(JSON.stringify(c))}`,
+        } as SRSCard)
     );
     const group = { id, name } as SRSGroup;
 

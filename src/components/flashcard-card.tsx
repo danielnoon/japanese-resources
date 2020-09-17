@@ -21,8 +21,6 @@ export class FlashcardCard extends Component<
   FlashcardCardProps,
   FlashcardCardState
 > {
-  audio = new Audio();
-
   constructor(props) {
     super(props);
 
@@ -43,8 +41,8 @@ export class FlashcardCard extends Component<
 
     const url = `${audioBucket}/${audioFolder}/${filename}.mp3`;
 
-    this.audio.src = url;
-    this.audio.play();
+    const aud = new Audio(url);
+    aud.play();
   }
 
   render() {
@@ -64,11 +62,14 @@ export class FlashcardCard extends Component<
                 {this.formatDisplay(entry)}
               </h1>
             ))}
-            <IconButton
-              onClick={ev => void ev.stopPropagation() || this.playAudio()}
-            >
-              <AudioIcon />
-            </IconButton>
+            {this.props.data["&AUDIO_FILENAME"] && (
+              <IconButton
+                onClick={ev => void ev.stopPropagation() || this.playAudio()}
+                className="audio-button"
+              >
+                <AudioIcon />
+              </IconButton>
+            )}
           </div>
           <div className="back">
             {back.map((entry, i) => (

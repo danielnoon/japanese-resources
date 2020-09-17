@@ -23,6 +23,7 @@ interface FlashcardDeckState {
   cardSide: number;
   advanceDirection: number;
   isSaved: boolean;
+  availableFields: string[];
 }
 
 export class FlashcardDeck extends Component<
@@ -51,11 +52,21 @@ export class FlashcardDeck extends Component<
       cardSide: 0,
       advanceDirection: 0,
       isSaved: false,
+      availableFields: [],
     };
   }
 
   componentDidMount() {
     this.setState({ isSaved: SRS.hasGroup(this.props.name) });
+    this.initFields();
+  }
+
+  initFields() {
+    this.setState({
+      availableFields: Object.keys(this.state.deck[0]).filter(
+        v => v[0] !== "&"
+      ),
+    });
   }
 
   shuffleCards() {
@@ -98,10 +109,6 @@ export class FlashcardDeck extends Component<
   }
 
   render() {
-    const availableFields = Object.keys(this.state.deck[0]).filter(
-      v => v[0] !== "&"
-    );
-
     return (
       <div className="deck-wrapper">
         {/* <input type="text" className="deck-focus-capture" /> */}
@@ -209,7 +216,7 @@ export class FlashcardDeck extends Component<
           </button>
         </div>
         <FlashcardSettingsModal
-          availableFields={availableFields}
+          availableFields={this.state.availableFields}
           front={this.state.front}
           back={this.state.back}
           show={this.state.showSettings}
